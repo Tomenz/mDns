@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mDnsServ", "mDnsServ.vcxproj", "{4448EA04-04EE-442A-BC38-69B848E25D5F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socketlib", "SocketLib\socketlib.vcxproj", "{758383C6-5B15-4191-9F17-5835F216F7A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release_no_openssl|x64 = Release_no_openssl|x64
+		Release_no_openssl|x86 = Release_no_openssl|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Debug|x64.ActiveCfg = Debug|x64
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Debug|x64.Build.0 = Debug|x64
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Debug|x86.ActiveCfg = Debug|Win32
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Debug|x86.Build.0 = Debug|Win32
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release_no_openssl|x64.ActiveCfg = Release|x64
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release_no_openssl|x64.Build.0 = Release|x64
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release_no_openssl|x86.ActiveCfg = Release|Win32
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release_no_openssl|x86.Build.0 = Release|Win32
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release|x64.ActiveCfg = Release|x64
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release|x64.Build.0 = Release|x64
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release|x86.ActiveCfg = Release|Win32
+		{4448EA04-04EE-442A-BC38-69B848E25D5F}.Release|x86.Build.0 = Release|Win32
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Debug|x64.ActiveCfg = Debug|x64
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Debug|x64.Build.0 = Debug|x64
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Debug|x86.ActiveCfg = Debug|Win32
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Debug|x86.Build.0 = Debug|Win32
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release_no_openssl|x64.ActiveCfg = Release_no_openssl|x64
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release_no_openssl|x64.Build.0 = Release_no_openssl|x64
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release_no_openssl|x86.ActiveCfg = Release_no_openssl|Win32
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release_no_openssl|x86.Build.0 = Release_no_openssl|Win32
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release|x64.ActiveCfg = Release|x64
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release|x64.Build.0 = Release|x64
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release|x86.ActiveCfg = Release|Win32
+		{758383C6-5B15-4191-9F17-5835F216F7A1}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C51C547D-AA63-40DC-B290-E7D6D7E0D6E1}
+	EndGlobalSection
+EndGlobal
