@@ -135,9 +135,9 @@ public:
             pair<map<UdpSocket*, tuple<int, string, uint32_t>>::iterator, bool>paRet = m_maSockets.emplace(new UdpSocket(), make_tuple(adrFamily, strIpAddr, nInterfaceIndex));
             if (paRet.second == true)
             {
-                paRet.first->first->BindErrorFunction(bind(&mDnsServer::SocketError, this, _1));
-                paRet.first->first->BindCloseFunction(bind(&mDnsServer::SocketCloseing, this, _1));
-                paRet.first->first->BindFuncBytesReceived(bind(&mDnsServer::DatenEmpfangen, this, _1));
+                paRet.first->first->BindErrorFunction(static_cast<function<void(BaseSocket* const)>>(bind(&mDnsServer::SocketError, this, _1)));
+                paRet.first->first->BindCloseFunction(static_cast<function<void(BaseSocket* const)>>(bind(&mDnsServer::SocketCloseing, this, _1)));
+                paRet.first->first->BindFuncBytesReceived(static_cast<function<void(UdpSocket* const)>>(bind(&mDnsServer::DatenEmpfangen, this, _1)));
                 if (get<0>(paRet.first->second) == AF_INET)
                 {
                     if (paRet.first->first->Create(strIpAddr.c_str(), 5353, "0.0.0.0") == false)
