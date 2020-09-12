@@ -216,12 +216,12 @@ public:
 
     void DatenEmpfangen(UdpSocket* pUdpSocket)
     {
-        uint32_t nAvalible = pUdpSocket->GetBytesAvailible();
+        size_t nAvalible = pUdpSocket->GetBytesAvailible();
 
         auto spBuffer = make_unique<unsigned char[]>(nAvalible + 1);
 
         string strFrom;
-        uint32_t nRead = pUdpSocket->Read(spBuffer.get(), nAvalible, strFrom);
+        size_t nRead = pUdpSocket->Read(spBuffer.get(), nAvalible, strFrom);
 
         if (nRead > 0 && nRead < 9999)
         {
