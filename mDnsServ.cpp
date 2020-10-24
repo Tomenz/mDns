@@ -133,7 +133,7 @@ public:
         {
             wcout << strIpAddr.c_str() << endl;//OutputDebugStringA(strIpAddr.c_str()); OutputDebugStringA("\r\n");
 
-            pair<map<UdpSocket*, tuple<int, string, uint32_t>>::iterator, bool>paRet = m_maSockets.emplace(new UdpSocket(), make_tuple(adrFamily, strIpAddr, nInterfaceIndex));
+            pair<map<unique_ptr<UdpSocket>, tuple<int, string, uint32_t>>::iterator, bool>paRet = m_maSockets.emplace(make_unique<UdpSocket>(), make_tuple(adrFamily, strIpAddr, nInterfaceIndex));
             if (paRet.second == true)
             {
                 paRet.first->first->BindErrorFunction(static_cast<function<void(BaseSocket* const)>>(bind(&mDnsServer::SocketError, this, _1)));
@@ -163,8 +163,8 @@ public:
         {
             //if (item.second.first == AF_INET6)
             {
-                m_maTimer.emplace(new RandIntervalTimer(), make_pair(item.first, "_services._dns-sd._udp.local"));
-                m_maTimer.emplace(new RandIntervalTimer(), make_pair(item.first, "_benzinger._tcp.local"));
+                m_maTimer.emplace(new RandIntervalTimer(), make_pair(item.first.get(), "_services._dns-sd._udp.local"));
+                m_maTimer.emplace(new RandIntervalTimer(), make_pair(item.first.get(), "_benzinger._tcp.local"));
             }
         }
         for (auto& item : m_maTimer)
@@ -198,7 +198,6 @@ public:
                     wcout << L"Error leaving Multicastgroup: " << get<1>(m_maSockets.begin()->second).c_str() << endl;
             }
             m_maSockets.begin()->first->Close();
-            delete m_maSockets.begin()->first;
             m_maSockets.erase(m_maSockets.begin());
         }
     }
@@ -230,7 +229,7 @@ public:
 
             wstringstream strOutput;
             const auto tNow = chrono::system_clock::to_time_t(chrono::system_clock::now());
-            const auto& pItem = m_maSockets.find(pUdpSocket);
+            const auto& pItem = find_if(begin(m_maSockets), end(m_maSockets), [&pUdpSocket](const auto& it) { return it.first.get() == pUdpSocket; });
             strOutput << put_time(localtime(&tNow), L"%a, %d %b %Y %H:%M:%S") << " - ";
             strOutput << strFrom.c_str() << L" on Interface: " << (pItem != end(m_maSockets) ? get<1>(pItem->second).c_str() : "") << endl;
 
@@ -277,7 +276,7 @@ public:
                             strHostname.erase(strHostname.find_last_not_of('\0') + 1);
                         strHostname += string(".local");
 
-                        const auto& pItem = m_maSockets.find(pUdpSocket);
+                        const auto& pItem = find_if(begin(m_maSockets), end(m_maSockets), [&pUdpSocket](const auto& it) { return it.first.get() == pUdpSocket; });
                         if (pItem != m_maSockets.end())
                         {
                             if (get<0>(pItem->second) == AF_INET)
@@ -331,7 +330,7 @@ public:
         if (nBufLen != 0)
             wcout << L"Something went wrong in the buffer size calculation" << endl;
 
-        const auto& pItem = m_maSockets.find(pUdpSocket);
+        const auto& pItem = find_if(begin(m_maSockets), end(m_maSockets), [&pUdpSocket](const auto& it) { return it.first.get() == pUdpSocket; });
         if (pItem != m_maSockets.end())
         {
             if (get<0>(pItem->second) == AF_INET)
@@ -355,7 +354,7 @@ public:
             wcout << L"Something went wrong in the buffer size calculation" << endl;
 
         // send it on his way
-        const auto& pItem = m_maSockets.find(pUdpSocket);
+        const auto& pItem = find_if(begin(m_maSockets), end(m_maSockets), [&pUdpSocket](const auto& it) { return it.first.get() == pUdpSocket; });
         if (pItem != m_maSockets.end())
         {
             if (get<0>(pItem->second) == AF_INET)
@@ -366,7 +365,7 @@ public:
     }
 
 private:
-    map<UdpSocket*, tuple<int, string, uint32_t>> m_maSockets;
+    map<unique_ptr<UdpSocket>, tuple<int, string, uint32_t>> m_maSockets;
     map<RandIntervalTimer*, pair<UdpSocket*, string>> m_maTimer;
 };
 
